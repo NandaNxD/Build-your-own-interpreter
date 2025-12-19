@@ -64,7 +64,17 @@ public class Tokenizer {
                     j++;
                 }
 
-                tokenList.add(new Token(TokenType.NUMBER,number.toString(),(numberContainsDecimalDot && decimalValueExists)?number.toString():numbersBeforeDecimalDot +".0",lineNumber));
+                String lexeme=number.toString();
+
+                if(decimalValueExists){
+                    int index=number.length()-1;
+                    while(number.charAt(index)=='0'){
+                        number.deleteCharAt(index);
+                        index--;
+                    }
+                }
+
+                tokenList.add(new Token(TokenType.NUMBER,lexeme,(numberContainsDecimalDot && decimalValueExists)?number.toString():numbersBeforeDecimalDot +".0",lineNumber));
 
                 i=j;
                 continue;
