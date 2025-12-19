@@ -29,7 +29,7 @@ public class Tokenizer {
             }
 
             /**
-             * Handle identifier
+             * Handle identifier and reserved words
              */
 
             if((currentChar>='a' && currentChar<='z') || (currentChar>='A' && currentChar<='Z') || currentChar=='_'){
@@ -45,9 +45,20 @@ public class Tokenizer {
                         break;
                     }
                     currentChar=fileContent.charAt(j);
-
                 }
-                tokenList.add(new Token(TokenType.IDENTIFIER,identifierValue.toString(),null,lineNumber));
+                /**
+                 * Check if identifier is a reserved word
+                 */
+
+                TokenType reservedWordType=ReservedWords.map.get(identifierValue.toString());
+
+                if(reservedWordType!=null){
+                    tokenList.add(new Token(reservedWordType,identifierValue.toString(),null,lineNumber));
+                }
+                else{
+                    tokenList.add(new Token(TokenType.IDENTIFIER,identifierValue.toString(),null,lineNumber));
+                }
+
                 i=j;
                 continue;
             }
