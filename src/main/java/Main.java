@@ -3,6 +3,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+import static java.lang.System.err;
 import static java.lang.System.out;
 
 public class Main {
@@ -25,8 +26,11 @@ public class Main {
         try {
             fileContents = Files.readString(Path.of(filename));
             List<Token> tokenList = Tokenizer.tokenize(fileContents);
+            boolean error=false;
+
             for (Token token:tokenList){
                 if(token.getType()==TokenType.ERROR){
+                    error=true;
                     out.printf("[line %d] Error: Unexpected character: %s\n",token.getLine(),token.getLexeme());
                 }
                 else{
@@ -35,6 +39,10 @@ public class Main {
 
             }
             out.println("EOF  null");
+
+            if(error){
+                System.exit(65);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
