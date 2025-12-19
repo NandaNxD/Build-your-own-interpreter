@@ -10,9 +10,9 @@ public class Tokenizer {
         int size=fileContent.length();
         List<Token> tokenList=new ArrayList<>();
 
-        StringBuilder tempToken;
-
         Map<Integer,Integer> newLineIndexMap=new HashMap<>();
+
+        StringBuilder temp=null;
 
         int lineNumber=1;
 
@@ -52,6 +52,15 @@ public class Tokenizer {
                     break;
                 case '*':
                     tokenList.add(new Token(TokenType.STAR,String.valueOf(currentChar),null,lineNumber));
+                    break;
+                case '=':
+                    if(fileContent.length()>i+1 && fileContent.charAt(i+1)=='='){
+                        tokenList.add(new Token(TokenType.EQUAL_EQUAL,"==", null,lineNumber));
+                        i++;
+                    }
+                    else{
+                        tokenList.add(new Token(TokenType.EQUAL,String.valueOf(currentChar),null,lineNumber));
+                    }
                     break;
                 case '\n':
                     lineNumber++;
