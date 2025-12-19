@@ -16,8 +16,19 @@ public class Tokenizer {
 
         int lineNumber=1;
 
+        boolean commentStarted=false;
+
         while(i<size){
             char currentChar=fileContent.charAt(i);
+
+            if(currentChar=='\n'){
+                commentStarted=false;
+            }
+
+            if(commentStarted){
+                i++;
+                continue;
+            }
 
             switch (currentChar){
                 case '(':
@@ -48,7 +59,12 @@ public class Tokenizer {
                     tokenList.add(new Token(TokenType.SEMICOLON,String.valueOf(currentChar),null,lineNumber));
                     break;
                 case '/':
-                    tokenList.add(new Token(TokenType.SLASH,String.valueOf(currentChar),null,lineNumber));
+                    if(fileContent.length()>i+1 && fileContent.charAt(i+1)=='/'){
+                        commentStarted=true;
+                    }
+                    else{
+                        tokenList.add(new Token(TokenType.SLASH,String.valueOf(currentChar),null,lineNumber));
+                    }
                     break;
                 case '*':
                     tokenList.add(new Token(TokenType.STAR,String.valueOf(currentChar),null,lineNumber));
