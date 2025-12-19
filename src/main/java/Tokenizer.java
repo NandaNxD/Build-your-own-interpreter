@@ -38,7 +38,7 @@ public class Tokenizer {
 
                 StringBuilder identifierValue=new StringBuilder();
 
-                while((currentChar>='a' && currentChar<='z') || (currentChar>='A' && currentChar<='Z') || currentChar=='_'){
+                while((currentChar>='a' && currentChar<='z') || (currentChar>='A' && currentChar<='Z') || currentChar=='_' || (currentChar>='0' && currentChar<='9')){
                     identifierValue.append(currentChar);
                     j++;
                     if(j>=fileContent.length()){
