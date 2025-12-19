@@ -31,7 +31,7 @@ public class Main {
             for (Token token:tokenList){
                 if(token.getType()==TokenType.ERROR){
                     error=true;
-                    out.printf("[line %d] Error: Unexpected character: %s\n",token.getLine(),token.getLexeme());
+                    err.printf("[line %d] Error: Unexpected character: %s\n",token.getLine(),token.getLexeme());
                 }
                 else{
                     out.println(token);
