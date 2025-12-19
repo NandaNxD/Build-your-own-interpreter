@@ -31,7 +31,7 @@ public class Tokenizer {
             }
 
             switch (currentChar){
-                case ' ':
+                case ' ', '\t':
                     break;
                 case '(':
                     tokenList.add(new Token(TokenType.LEFT_PAREN,String.valueOf(currentChar),null,lineNumber));
