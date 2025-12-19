@@ -29,9 +29,13 @@ public class Main {
             boolean error=false;
 
             for (Token token:tokenList){
-                if(token.getType()==TokenType.ERROR){
+                if(token.getType()==TokenType.UNEXPECTED_CHARACTER_ERROR){
                     error=true;
                     err.printf("[line %d] Error: Unexpected character: %s\n",token.getLine(),token.getLexeme());
+                }
+                else if(token.getType()==TokenType.UNTERMINATED_STRING_ERROR){
+                    error=true;
+                    err.printf("[line %d] Error: Unterminated string.\n",token.getLine());
                 }
                 else{
                     out.println(token);

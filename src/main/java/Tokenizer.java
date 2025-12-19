@@ -21,6 +21,7 @@ public class Tokenizer {
         while(i<size){
             char currentChar=fileContent.charAt(i);
 
+
             if(currentChar=='\n'){
                 commentStarted=false;
             }
@@ -68,6 +69,30 @@ public class Tokenizer {
                         tokenList.add(new Token(TokenType.SLASH,String.valueOf(currentChar),null,lineNumber));
                     }
                     break;
+                case'"':
+                    int j=i+1;
+                    StringBuilder stringLiteral=new StringBuilder();
+
+                    boolean stringLiteralEndFlag=false;
+
+                    while(j<fileContent.length()){
+                        if(fileContent.charAt(j)=='"'){
+                            stringLiteralEndFlag=true;
+                            break;
+                        }
+                        stringLiteral.append(fileContent.charAt(j));
+                        j++;
+                    }
+
+                    if(stringLiteralEndFlag){
+                        tokenList.add(new Token(TokenType.STRING,String.format("\"%s\"", stringLiteral),stringLiteral.toString(),lineNumber));
+                    }
+                    else{
+                        tokenList.add(new Token(TokenType.UNTERMINATED_STRING_ERROR,String.format("\"%s", stringLiteral),stringLiteral.toString(),lineNumber));
+                    }
+
+                    i=j+1;
+                    continue;
                 case '*':
                     tokenList.add(new Token(TokenType.STAR,String.valueOf(currentChar),null,lineNumber));
                     break;
@@ -111,7 +136,7 @@ public class Tokenizer {
                     lineNumber++;
                     break;
                 default:
-                    tokenList.add(new Token(TokenType.ERROR,String.valueOf(currentChar),null,lineNumber));
+                    tokenList.add(new Token(TokenType.UNEXPECTED_CHARACTER_ERROR,String.valueOf(currentChar),null,lineNumber));
             }
 
             i++;
