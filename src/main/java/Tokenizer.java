@@ -12,10 +12,6 @@ public class Tokenizer {
         int size=fileContent.length();
         List<Token> tokenList=new ArrayList<>();
 
-        Map<Integer,Integer> newLineIndexMap=new HashMap<>();
-
-        StringBuilder temp=null;
-
         int lineNumber=1;
 
         boolean commentStarted=false;
@@ -78,7 +74,6 @@ public class Tokenizer {
 
                 String literalValueInString=(numberContainsDecimalDot && decimalValueExists)?number.toString():numbersBeforeDecimalDot +".0";
 
-                // TODO fix this function to support setting literal to actual number value
                 tokenList.add(new Token(TokenType.NUMBER,lexeme,Double.parseDouble(literalValueInString),lineNumber));
 
                 i=j;
