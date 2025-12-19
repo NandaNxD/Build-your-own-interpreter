@@ -3,6 +3,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.lang.System.out;
+
 public class Tokenizer {
 
     static public List<Token> tokenize(String fileContent) throws Exception {
@@ -46,7 +48,7 @@ public class Tokenizer {
 
                 StringBuilder numbersBeforeDecimalDot=new StringBuilder();
 
-                while(j<fileContent.length() && ((currentNumber>='0' && currentNumber<='9') || currentNumber=='.')){
+                while(j<fileContent.length() && ((fileContent.charAt(j)>='0' && fileContent.charAt(j)<='9') || fileContent.charAt(j)=='.')){
                     currentNumber=fileContent.charAt(j);
 
                     if(currentNumber=='.'){
@@ -73,6 +75,8 @@ public class Tokenizer {
                         index--;
                     }
                 }
+
+                out.println(j);
 
                 tokenList.add(new Token(TokenType.NUMBER,lexeme,(numberContainsDecimalDot && decimalValueExists)?number.toString():numbersBeforeDecimalDot +".0",lineNumber));
 
