@@ -76,7 +76,10 @@ public class Tokenizer {
                     }
                 }
 
-                tokenList.add(new Token(TokenType.NUMBER,lexeme,(numberContainsDecimalDot && decimalValueExists)?number.toString():numbersBeforeDecimalDot +".0",lineNumber));
+                String literalValueInString=(numberContainsDecimalDot && decimalValueExists)?number.toString():numbersBeforeDecimalDot +".0";
+
+                // TODO fix this function to support setting literal to actual number value
+                tokenList.add(new Token(TokenType.NUMBER,lexeme,Double.parseDouble(literalValueInString),lineNumber));
 
                 i=j;
                 continue;
