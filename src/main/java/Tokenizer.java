@@ -53,6 +53,24 @@ public class Tokenizer {
                 case '*':
                     tokenList.add(new Token(TokenType.STAR,String.valueOf(currentChar),null,lineNumber));
                     break;
+                case '<':
+                    if(fileContent.length()>i+1 && fileContent.charAt(i+1)=='='){
+                        tokenList.add(new Token(TokenType.LESS_EQUAL,"<=", null,lineNumber));
+                        i++;
+                    }
+                    else{
+                        tokenList.add(new Token(TokenType.LESS,String.valueOf(currentChar),null,lineNumber));
+                    }
+                    break;
+                case '>':
+                    if(fileContent.length()>i+1 && fileContent.charAt(i+1)=='='){
+                        tokenList.add(new Token(TokenType.GREATER_EQUAL,">=", null,lineNumber));
+                        i++;
+                    }
+                    else{
+                        tokenList.add(new Token(TokenType.GREATER,String.valueOf(currentChar),null,lineNumber));
+                    }
+                    break;
                 case '!':
                     if(fileContent.length()>i+1 && fileContent.charAt(i+1)=='='){
                         tokenList.add(new Token(TokenType.BANG_EQUAL,"!=", null,lineNumber));
