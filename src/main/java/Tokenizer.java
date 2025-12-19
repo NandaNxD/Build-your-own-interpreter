@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Tokenizer {
 
@@ -10,45 +12,52 @@ public class Tokenizer {
 
         StringBuilder tempToken;
 
+        Map<Integer,Integer> newLineIndexMap=new HashMap<>();
+
+        int lineNumber=1;
+
         while(i<size){
             char currentChar=fileContent.charAt(i);
 
             switch (currentChar){
                 case '(':
-                    tokenList.add(new Token(TokenType.LEFT_PAREN,String.valueOf(currentChar),null));
+                    tokenList.add(new Token(TokenType.LEFT_PAREN,String.valueOf(currentChar),null,lineNumber));
                     break;
                 case ')':
-                    tokenList.add(new Token(TokenType.RIGHT_PAREN,String.valueOf(currentChar),null));
+                    tokenList.add(new Token(TokenType.RIGHT_PAREN,String.valueOf(currentChar),null,lineNumber));
                     break;
                 case '{':
-                    tokenList.add(new Token(TokenType.LEFT_BRACE,String.valueOf(currentChar),null));
+                    tokenList.add(new Token(TokenType.LEFT_BRACE,String.valueOf(currentChar),null,lineNumber));
                     break;
                 case '}':
-                    tokenList.add(new Token(TokenType.RIGHT_BRACE,String.valueOf(currentChar),null));
+                    tokenList.add(new Token(TokenType.RIGHT_BRACE,String.valueOf(currentChar),null,lineNumber));
                     break;
                 case ',':
-                    tokenList.add(new Token(TokenType.COMMA,String.valueOf(currentChar),null));
+                    tokenList.add(new Token(TokenType.COMMA,String.valueOf(currentChar),null,lineNumber));
                     break;
                 case '.':
-                    tokenList.add(new Token(TokenType.DOT,String.valueOf(currentChar),null));
+                    tokenList.add(new Token(TokenType.DOT,String.valueOf(currentChar),null,lineNumber));
                     break;
                 case '-':
-                    tokenList.add(new Token(TokenType.MINUS,String.valueOf(currentChar),null));
+                    tokenList.add(new Token(TokenType.MINUS,String.valueOf(currentChar),null,lineNumber));
                     break;
                 case '+':
-                    tokenList.add(new Token(TokenType.PLUS,String.valueOf(currentChar),null));
+                    tokenList.add(new Token(TokenType.PLUS,String.valueOf(currentChar),null,lineNumber));
                     break;
                 case ';':
-                    tokenList.add(new Token(TokenType.SEMICOLON,String.valueOf(currentChar),null));
+                    tokenList.add(new Token(TokenType.SEMICOLON,String.valueOf(currentChar),null,lineNumber));
                     break;
                 case '/':
-                    tokenList.add(new Token(TokenType.SLASH,String.valueOf(currentChar),null));
+                    tokenList.add(new Token(TokenType.SLASH,String.valueOf(currentChar),null,lineNumber));
                     break;
                 case '*':
-                    tokenList.add(new Token(TokenType.STAR,String.valueOf(currentChar),null));
+                    tokenList.add(new Token(TokenType.STAR,String.valueOf(currentChar),null,lineNumber));
+                    break;
+                case '\n':
+                    lineNumber++;
                     break;
                 default:
-                    throw new Exception("This character isnt supported in token");
+                    tokenList.add(new Token(TokenType.ERROR,String.valueOf(currentChar),null,lineNumber));
             }
 
             i++;
@@ -57,4 +66,5 @@ public class Tokenizer {
 
         return tokenList;
     }
+
 }

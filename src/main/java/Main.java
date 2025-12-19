@@ -26,7 +26,13 @@ public class Main {
             fileContents = Files.readString(Path.of(filename));
             List<Token> tokenList = Tokenizer.tokenize(fileContents);
             for (Token token:tokenList){
-                out.println(token);
+                if(token.getType()==TokenType.ERROR){
+                    out.printf("[line %d] Error: Unexpected character: %s\n",token.getLine(),token.getLexeme());
+                }
+                else{
+                    out.println(token);
+                }
+
             }
             out.println("EOF  null");
 
