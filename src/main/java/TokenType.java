@@ -3,7 +3,7 @@ public enum TokenType {
 
     COMMA,DOT, MINUS, PLUS,SEMICOLON,SLASH,STAR,
 
-    EQUAL, EQUAL_EQUAL,
+    EQUAL, EQUAL_EQUAL,BANG, BANG_EQUAL,
 
     ERROR,
 }
