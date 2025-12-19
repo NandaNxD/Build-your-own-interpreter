@@ -21,13 +21,36 @@ public class Tokenizer {
         while(i<size){
             char currentChar=fileContent.charAt(i);
 
-
             if(currentChar=='\n'){
                 commentStarted=false;
             }
 
             if(commentStarted){
                 i++;
+                continue;
+            }
+
+            /**
+             * Handle number separately
+             */
+
+            if(currentChar>='0' && currentChar<='9'){
+                StringBuilder number=new StringBuilder();
+
+                int j=i;
+
+                char currentNumber=fileContent.charAt(j);
+
+                while(j<fileContent.length() && ((currentNumber>='0' && currentNumber<='9') || currentNumber=='.')){
+                    currentNumber=fileContent.charAt(j);
+                    number.append(currentNumber);
+                    j++;
+                }
+
+                float parsedNumber=Float.parseFloat(number.toString());
+                tokenList.add(new Token(TokenType.NUMBER,number.toString(),parsedNumber,lineNumber));
+
+                i=j;
                 continue;
             }
 
