@@ -76,8 +76,6 @@ public class Tokenizer {
                     }
                 }
 
-                out.println(j);
-
                 tokenList.add(new Token(TokenType.NUMBER,lexeme,(numberContainsDecimalDot && decimalValueExists)?number.toString():numbersBeforeDecimalDot +".0",lineNumber));
 
                 i=j;
