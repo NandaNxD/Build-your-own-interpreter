@@ -29,6 +29,31 @@ public class Tokenizer {
             }
 
             /**
+             * Handle identifier
+             */
+
+            if((currentChar>='a' && currentChar<='z') || (currentChar>='A' && currentChar<='Z') || currentChar=='_'){
+                currentChar=fileContent.charAt(i);
+                int j=i;
+
+                StringBuilder identifierValue=new StringBuilder();
+
+                while((currentChar>='a' && currentChar<='z') || (currentChar>='A' && currentChar<='Z') || currentChar=='_'){
+                    identifierValue.append(currentChar);
+                    j++;
+                    if(j>=fileContent.length()){
+                        break;
+                    }
+                    currentChar=fileContent.charAt(j);
+
+                }
+                tokenList.add(new Token(TokenType.IDENTIFIER,identifierValue.toString(),null,lineNumber));
+                i=j;
+                continue;
+            }
+
+
+            /**
              * Handle number separately
              */
 
@@ -37,7 +62,6 @@ public class Tokenizer {
 
                 int j=i;
 
-                char currentNumber=fileContent.charAt(j);
 
                 boolean numberContainsDecimalDot=false;
                 boolean decimalValueExists=false;
@@ -45,7 +69,7 @@ public class Tokenizer {
                 StringBuilder numbersBeforeDecimalDot=new StringBuilder();
 
                 while(j<fileContent.length() && ((fileContent.charAt(j)>='0' && fileContent.charAt(j)<='9') || fileContent.charAt(j)=='.')){
-                    currentNumber=fileContent.charAt(j);
+                    char currentNumber=fileContent.charAt(j);
 
                     if(currentNumber=='.'){
                         numberContainsDecimalDot=true;
@@ -80,6 +104,9 @@ public class Tokenizer {
                 continue;
             }
 
+            /**
+             *  At the end of this switch case, there is an increment of i, ie i++ present at end
+             */
             switch (currentChar){
                 case ' ', '\t':
                     break;
