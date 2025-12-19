@@ -41,14 +41,30 @@ public class Tokenizer {
 
                 char currentNumber=fileContent.charAt(j);
 
+                boolean numberContainsDecimalDot=false;
+                boolean decimalValueExists=false;
+
+                StringBuilder numbersBeforeDecimalDot=new StringBuilder();
+
                 while(j<fileContent.length() && ((currentNumber>='0' && currentNumber<='9') || currentNumber=='.')){
                     currentNumber=fileContent.charAt(j);
+
+                    if(currentNumber=='.'){
+                        numberContainsDecimalDot=true;
+                    }
+
+                    if(!numberContainsDecimalDot){
+                        numbersBeforeDecimalDot.append(currentNumber);
+                    }
+
+                    if(numberContainsDecimalDot && currentNumber>'0'){
+                        decimalValueExists=true;
+                    }
                     number.append(currentNumber);
                     j++;
                 }
 
-                float parsedNumber=Float.parseFloat(number.toString());
-                tokenList.add(new Token(TokenType.NUMBER,number.toString(),parsedNumber,lineNumber));
+                tokenList.add(new Token(TokenType.NUMBER,number.toString(),(numberContainsDecimalDot && decimalValueExists)?number.toString():numbersBeforeDecimalDot +".0",lineNumber));
 
                 i=j;
                 continue;
