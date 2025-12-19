@@ -26,6 +26,27 @@ public class Tokenizer {
                 case '}':
                     tokenList.add(new Token(TokenType.RIGHT_BRACE,String.valueOf(currentChar),null));
                     break;
+                case ',':
+                    tokenList.add(new Token(TokenType.COMMA,String.valueOf(currentChar),null));
+                    break;
+                case '.':
+                    tokenList.add(new Token(TokenType.DOT,String.valueOf(currentChar),null));
+                    break;
+                case '-':
+                    tokenList.add(new Token(TokenType.MINUS,String.valueOf(currentChar),null));
+                    break;
+                case '+':
+                    tokenList.add(new Token(TokenType.PLUS,String.valueOf(currentChar),null));
+                    break;
+                case ';':
+                    tokenList.add(new Token(TokenType.SEMICOLON,String.valueOf(currentChar),null));
+                    break;
+                case '/':
+                    tokenList.add(new Token(TokenType.SLASH,String.valueOf(currentChar),null));
+                    break;
+                case '*':
+                    tokenList.add(new Token(TokenType.STAR,String.valueOf(currentChar),null));
+                    break;
                 default:
                     throw new Exception("This character isnt supported in token");
             }
