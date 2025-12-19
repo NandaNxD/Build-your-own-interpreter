@@ -20,6 +20,12 @@ public class Tokenizer {
                 case ')':
                     tokenList.add(new Token(TokenType.RIGHT_PAREN,String.valueOf(currentChar),null));
                     break;
+                case '{':
+                    tokenList.add(new Token(TokenType.LEFT_BRACE,String.valueOf(currentChar),null));
+                    break;
+                case '}':
+                    tokenList.add(new Token(TokenType.RIGHT_BRACE,String.valueOf(currentChar),null));
+                    break;
                 default:
                     throw new Exception("This character isnt supported in token");
             }
